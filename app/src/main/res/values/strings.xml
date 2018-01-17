@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">QuickNote</string>
+    <string name="splash_welcome_message">Welcome</string>
+    <string name="button_login_text">Login</string>
+    <string name="button_save_text">Save</string>
+    <string name="message_logged_in">You are logged in!</string>
+    <string name="message_note_saved">Note saved!</string>
+    <string name="message_note_deleted">Note deleted!</string>
+    <string name="menu_item_add">Add Note</string>
+    <string name="menu_item_edit">Edit Note</string>
+    <string name="menu_item_delete">Delete Note</string>
+    <string name="title_activity_note_detail">NoteDetailActivity</string>
+    <string name="note_empty">Notes are empty</string>
+    <string name="note_hint_title">Titel...</string>
+    <string name="note_hint_message">Message...</string>
+</resources>

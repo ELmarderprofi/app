@@ -1,0 +1,15 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+/release
+/gen
+/src/main/gen
+/bin
+/local.properties
+/local_history.patch
+/gradle.properties
+.DS_Store
+/build
+/captures
+.externalNativeBuild
