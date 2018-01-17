@@ -10,32 +10,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quicknote.R;
 import com.quicknote.preferences.Preferences;
-import com.quicknote.util.StringUtil;
 
 public class NoteEditActivity extends AppCompatActivity implements View.OnClickListener, DialogInterface.OnClickListener {
 
     private EditText title;
     private EditText message;
-    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
 
+        // Find views by id
+        Button button = findViewById(R.id.button);
         title = findViewById(R.id.title);
         message = findViewById(R.id.message);
-        button = findViewById(R.id.button);
 
+        // Set listener
         button.setOnClickListener(this);
         title.setText(Preferences.getNoteTitle(this));
         message.setText(Preferences.getNoteMessage(this));
 
+        // Init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -52,9 +52,9 @@ public class NoteEditActivity extends AppCompatActivity implements View.OnClickL
             return true;
         } else if (itemId == R.id.delete) {
             new AlertDialog.Builder(this)
-                    .setMessage("Are you sure you want to delete this note?")
-                    .setNegativeButton("No", null)
-                    .setPositiveButton("Yes", NoteEditActivity.this)
+                    .setMessage(R.string.dialog_delete_note_message)
+                    .setNegativeButton(R.string.button_no_text, null)
+                    .setPositiveButton(R.string.button_yes_text, NoteEditActivity.this)
                     .show();
         }
 

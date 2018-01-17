@@ -21,7 +21,8 @@
     </style>
 
     <style name="Banner">
-        <item name="android:textSize">64sp</item>
+        <item name="android:textSize">56sp</item>
+        <item name="android:textColor">@color/colorGrey</item>
     </style>
 
     <style name="Title">
@@ -30,14 +31,20 @@
         <item name="android:textColor">@color/colorGrey</item>
     </style>
 
-    <style name="Message">
-        <item name="android:textSize">22sp</item>
-        <item name="android:textColor">@color/colorGrey</item>
-    </style>
-
     <style name="Toolbar">
         <item name="android:layout_height">56dp</item>
         <item name="android:background">@color/colorPrimary</item>
+        <item name="android:titleTextColor">@color/colorWhite</item>
+        <item name="theme">@style/ToolbarTheme</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/colorWhite</item>
+    </style>
+
+    <style name="Message">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorGrey</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

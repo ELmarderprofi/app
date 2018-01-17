@@ -22,9 +22,11 @@ public class NoteDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_detail);
 
+        // Find views by id
         noteTitle = findViewById(R.id.note_title);
         noteMessage = findViewById(R.id.note_message);
 
+        // Init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
