@@ -20,7 +20,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private ListView listView;
     private NoteAdapter adapter;
 
     @Override
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Find views by id
         Toolbar toolbar = findViewById(R.id.toolbar);
-        listView = findViewById(R.id.list);
+        ListView listView = findViewById(R.id.list);
 
         // Init toolbar
         setSupportActionBar(toolbar);

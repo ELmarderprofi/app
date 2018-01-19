@@ -13,22 +13,24 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    // Database table column names
+    // Database properties
     private static final String DATABASE_NAME = "quicknote";
     private static final String DATABASE_TABLE_NAME = "notes";
     private static final int DATABASE_VERSION = 1;
 
-    // Database properties
+    // Database table column names
     private static final String KEY_ID = "id";
     private static final String KEY_TIMESTAMP = "timestamp";
     private static final String KEY_STATUS = "status";
     private static final String KEY_TITLE = "title";
     private static final String KEY_MESSAGE = "message";
 
+    // Database cursor array
     private static final String[] CURSOR_ARRAY = new String[] {
             KEY_ID, KEY_TIMESTAMP, KEY_STATUS, KEY_TITLE, KEY_MESSAGE
     };
 
+    // Database create table statement
     private static final String CREATE_TABLE = "CREATE TABLE " + DATABASE_TABLE_NAME + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_TIMESTAMP + " INT,"
@@ -39,10 +41,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static DatabaseHelper instance = null;
 
+    // Private DatabaseHelper Constructor
     private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Singleton
     public static  DatabaseHelper getInstance(Context context) {
         if (instance == null) {
             instance = new DatabaseHelper(context);
@@ -53,7 +57,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Insert note into database
     public long insertNote(Note note) {
-        long id;
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -62,9 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_TITLE, note.getTitle());
         values.put(KEY_MESSAGE, note.getMessage());
 
-        id = db.insert(DATABASE_TABLE_NAME, null, values);
-
-        return id;
+        return db.insert(DATABASE_TABLE_NAME, null, values);
     }
 
     // Get all notes from database
