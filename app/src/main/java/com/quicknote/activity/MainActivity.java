@@ -7,19 +7,50 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.quicknote.R;
+import com.quicknote.adapter.NoteAdapter;
+import com.quicknote.constants.Constants;
+import com.quicknote.database.DatabaseHelper;
+import com.quicknote.entity.Note;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+
+    private ListView listView;
+    private NoteAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Init toolbar
+        // Find views by id
         Toolbar toolbar = findViewById(R.id.toolbar);
+        listView = findViewById(R.id.list);
+
+        // Init toolbar
         setSupportActionBar(toolbar);
+
+        // Init objects
+        adapter = new NoteAdapter(this);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateView();
+    }
+
+    private void updateView() {
+        List<Note> notes = DatabaseHelper.getInstance(this).getAllNotes();
+        adapter.setNotes(notes);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -45,5 +76,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        Intent intent = new Intent(this,
+                NoteDetailActivity.class);
+        intent.putExtra(Constants.INTENT_EXTRA_ID, id);
+        startActivity(intent);
     }
 }

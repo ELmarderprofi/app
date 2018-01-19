@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.quicknote.R;
+import com.quicknote.database.DatabaseHelper;
+import com.quicknote.entity.Note;
 import com.quicknote.preferences.Preferences;
 
 public class NoteEditActivity extends AppCompatActivity implements View.OnClickListener, DialogInterface.OnClickListener {
@@ -26,21 +28,21 @@ public class NoteEditActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_note_edit);
 
         // Find views by id
+        Toolbar toolbar = findViewById(R.id.toolbar);
         Button button = findViewById(R.id.button);
         title = findViewById(R.id.title);
         message = findViewById(R.id.message);
+
+        // Init toolbar
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         // Set listener
         button.setOnClickListener(this);
         title.setText(Preferences.getNoteTitle(this));
         message.setText(Preferences.getNoteMessage(this));
-
-        // Init toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     @Override
@@ -70,8 +72,20 @@ public class NoteEditActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        Preferences.setNoteTitle(this, title.getText().toString());
-        Preferences.setNoteMessage(this, message.getText().toString());
+        String titleString = title.getText().toString();
+        String messageString = message.getText().toString();
+
+        Preferences.setNoteTitle(this, titleString);
+        Preferences.setNoteMessage(this, messageString);
+
+        Note note = new Note();
+        note.setTitle(titleString);
+        note.setMessage(messageString);
+        note.setTimestamp(System.currentTimeMillis());
+        note.setStatus(Note.STATUS_TODO);
+
+        DatabaseHelper.getInstance(this).insertNote(note);
+
         Toast.makeText(this, getString(R.string.message_note_saved), Toast.LENGTH_SHORT).show();
         finish();
     }
